@@ -1,7 +1,10 @@
-export default function Table({ annualData,dataObj }) {
-    console.log(dataObj)
+import { calculateInvestmentResults } from "../util/investment";
+export default function Table({ dataObj }) {
+  // console.log(dataObj)
+  const result = calculateInvestmentResults(dataObj);
+  console.log(result);
   return (
-    <p>Results</p> 
+    <p>Results</p>
     // <table>
     //   <thead>
     //     <tr>
