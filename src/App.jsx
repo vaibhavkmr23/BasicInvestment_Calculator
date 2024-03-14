@@ -76,7 +76,7 @@ function App() {
         </div>
       </section>
 
-      <div id="result">
+      <div >
         <Table dataObj={dataObj}/>
       </div>
     </>
