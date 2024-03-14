@@ -38,6 +38,7 @@ function App() {
     // console.log(duration);
   }
 
+  const inputIsValid = duration >= 1
   return (
     <>
       <Header />
@@ -77,7 +78,9 @@ function App() {
       </section>
 
       <div >
-        <Table dataObj={dataObj}/>
+        {!inputIsValid && <p className="center">Please select a Valid Duration</p>}
+        {inputIsValid && <Table dataObj={dataObj}/> }
+        
       </div>
     </>
   );
