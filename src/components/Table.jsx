@@ -22,7 +22,7 @@ export default function Table({ dataObj }) {
             data.valueEndOfYear - data.annualInvestment * data.year - initialInvestment;
             const totalAmountInvested = data.valueEndOfYear - totalInterest
           return (
-            <tr>
+            <tr key={data.year}>
               <td>{data.year}</td>
               <td>{formatter.format(data.valueEndOfYear)}</td>
               <td>{formatter.format(data.interest)}</td>

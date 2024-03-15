@@ -2,85 +2,38 @@ import { useState } from "react";
 import Header from "./components/Header";
 import UserInput from "./components/UserInput";
 import Table from "./components/Table";
-// import { calculateInvestmentResults } from "./util/investment";
+
+const DATA_OBJ = {
+  initialInvestment: 100,
+  annualInvestment: 200,
+  expectedReturn: 2,
+  duration: 2,
+};
+
 function App() {
-  const [initialInvestment, setInitialInvestment] = useState(0);
-  const [annualInvestment, setAnnualInvestment] = useState(0);
-  const [expectedReturn, setExpectedReturn] = useState(0);
-  const [duration, setDuration] = useState(0);
+  // manage with single state
 
-  const dataObj = {
-    initialInvestment:initialInvestment,
-    annualInvestment:annualInvestment,
-    expectedReturn:expectedReturn,
-    duration:duration,
-  };
-  
+  const [investmentData, setInvestmentData] = useState(DATA_OBJ);
 
-  function handleInitialInvestChange(e) {
-    // console.log(e.target.value)
-    setInitialInvestment(+(e.target.value));
-    // console.log(initialInvestment);
-  }
-  function handleAnnualInvestChange(e) {
-    // console.log(e.target.value)
-    setAnnualInvestment(+(e.target.value));
-    // console.log(annualInvestment);
-  }
-  function handleExpectedReturnChange(e) {
-    // console.log(e.target.value)
-    setExpectedReturn(+(e.target.value));
-    // console.log(expectedReturn);
-  }
-  function handleDurationChange(e) {
-    // console.log(e.target.value)
-    setDuration(+(e.target.value));
-    // console.log(duration);
+  function handleChange(key, value) {
+    setInvestmentData((prevData) => {
+      return {
+        ...prevData,
+        [key]: +value,
+      };
+    });
   }
 
-  const inputIsValid = duration >= 1
+  const inputIsValid = investmentData.duration >= 1;
   return (
     <>
       <Header />
-      <section id="user-input">
-        <div className="input-group">
-          <UserInput
-            type="number"
-            className="input-group"
-            value={initialInvestment}
-            inputValue="INITIAL INVESTMENT"
-            onKeyChange={handleInitialInvestChange}
-          />
-          <UserInput
-            type="number"
-            value={annualInvestment}
-            className="input-group"
-            inputValue="ANNUAL INVESTMENT"
-            onKeyChange={handleAnnualInvestChange}
-          />
-        </div>
-        <div className="input-group">
-          <UserInput
-            type="number"
-            value={expectedReturn}
-            className="input-group"
-            inputValue="EXPECTED RETURN"
-            onKeyChange={handleExpectedReturnChange}
-          />
-          <UserInput
-            type="number"
-            value={duration}
-            className="input-group"
-            inputValue="DURATION"
-            onKeyChange={handleDurationChange}
-          />
-        </div>
-      </section>
-
-      <div >
-        {!inputIsValid && <p className="center">Please select a Valid Duration</p>}
-        {inputIsValid && <Table dataObj={dataObj}/> }
-        
+      <UserInput dataValue={investmentData} onFieldChange={handleChange} />
+      <div>
+        {!inputIsValid && (
+          <p className="center">Please select a Valid Duration</p>
+        )}
+        {inputIsValid && <Table dataObj={investmentData} />}
       </div>
     </>
   );
